@@ -15,7 +15,7 @@ public class MapHexConnectable : MapHex
       connector.GameObject.SetActive(false);
 
       var direction = connector.Direction;
-      var adjacent = Coordinate.GetAdjacentInDirection(direction);
+      var adjacent = Coordinate.GetNeighbor(direction);
       if (hexes.TryGetValue(adjacent, out var terrainType))
       {
         if (terrainType == this.TerrainType || terrainType == HexTerrainType.Town)
@@ -32,7 +32,7 @@ public class MapHexConnectable : MapHex
   [System.Serializable]
   public class MapHexConnectionPiece
   {
-    public Direction Direction;
+    public HexDirection Direction;
     public GameObject GameObject;
   }
 }

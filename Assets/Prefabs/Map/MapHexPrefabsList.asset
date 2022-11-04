@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HexTiles:
   - Type: 1
-    Weight: 9
+    Weight: 10
     Prefab: {fileID: 4755727077740869824, guid: 8e246f07e31b8524aa5de9b8014a306e, type: 3}
     IsRotatable: 1
   - Type: 2
@@ -25,23 +25,23 @@ MonoBehaviour:
     Weight: 1
     Prefab: {fileID: 714293364790164004, guid: efe689c7b417ec842820a2edf674930a, type: 3}
     IsRotatable: 1
+  - Type: 6
+    Weight: 2
+    Prefab: {fileID: 2032397571467878424, guid: fe835e391842f52429a61aab95ab60af, type: 3}
+    IsRotatable: 1
+  - Type: 5
+    Weight: 4
+    Prefab: {fileID: 7027086884874805316, guid: 9ee6b2136a10de04e8ffd6b41096c586, type: 3}
+    IsRotatable: 1
+  - Type: 8
+    Weight: 0
+    Prefab: {fileID: 5818126633233134166, guid: b7d4b63d1db60b442aa050345eb7a759, type: 3}
+    IsRotatable: 1
   - Type: 4
     Weight: 0
     Prefab: {fileID: 4285177864589768323, guid: 31ebd2b5c47fe934d92bdb11846d0516, type: 3}
     IsRotatable: 0
-  - Type: 5
-    Weight: 3
-    Prefab: {fileID: 7027086884874805316, guid: 9ee6b2136a10de04e8ffd6b41096c586, type: 3}
-    IsRotatable: 1
-  - Type: 6
-    Weight: 0
-    Prefab: {fileID: 2032397571467878424, guid: fe835e391842f52429a61aab95ab60af, type: 3}
-    IsRotatable: 1
   - Type: 7
     Weight: 0
     Prefab: {fileID: 4022881493198546167, guid: ab729596ba52173489037f68616da627, type: 3}
-    IsRotatable: 0
-  - Type: 8
-    Weight: 1
-    Prefab: {fileID: 5818126633233134166, guid: b7d4b63d1db60b442aa050345eb7a759, type: 3}
     IsRotatable: 0

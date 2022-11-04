@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 473142636567760999}
   - component: {fileID: 2202002885424278783}
   m_Layer: 0
-  m_Name: Road_Zy
+  m_Name: Road_YNeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 7792050094488671621}
   - component: {fileID: 5478823889417217196}
   m_Layer: 0
-  m_Name: Road_Xy
+  m_Name: Road_ZPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 4885211674784722589}
   - component: {fileID: 6331266149500468679}
   m_Layer: 0
-  m_Name: Road_Yz
+  m_Name: Road_YPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,15 +388,15 @@ MonoBehaviour:
   - Direction: 1
     GameObject: {fileID: 6718409457181318528}
   - Direction: 2
-    GameObject: {fileID: 3214848823428084301}
-  - Direction: 3
-    GameObject: {fileID: 4350570820298844152}
-  - Direction: 4
-    GameObject: {fileID: 3583453723802189665}
-  - Direction: 5
     GameObject: {fileID: 6409429921452574077}
-  - Direction: 6
+  - Direction: 3
+    GameObject: {fileID: 3583453723802189665}
+  - Direction: 4
     GameObject: {fileID: 1180136519246284248}
+  - Direction: 5
+    GameObject: {fileID: 3214848823428084301}
+  - Direction: 6
+    GameObject: {fileID: 4350570820298844152}
 --- !u!1 &4350570820298844152
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 953324393673065044}
   - component: {fileID: 4837398912583473442}
   m_Layer: 0
-  m_Name: Road_Yx
+  m_Name: Road_ZNeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 4094221269576238807}
   - component: {fileID: 3390578789477082268}
   m_Layer: 0
-  m_Name: Road_Zx
+  m_Name: Road_XNeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 2171399675911879433}
   - component: {fileID: 474929087225479462}
   m_Layer: 0
-  m_Name: Road_Xz
+  m_Name: Road_XPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
