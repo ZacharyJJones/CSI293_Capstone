@@ -20,20 +20,24 @@ public class MapBuilder : MonoBehaviour
 
   private void Start()
   {
-    int size = 4;
+    int size = 20;
     var hexes = Hex.Zero.HexesInRadius(size);
 
     var hexMap = hexes.ToDictionary(x => x, y => MapPrefabs.GetRandom().Type);
 
-    // Mountain Ring
-    var ring = Hex.Zero.HexesAtRadius(size + 1);
-    foreach (var hex in ring)
+    // Mountain Ring(s)
+    int numRings = 1 + size / 5;
+    for (int i = 1; i <= numRings; i++)
     {
-      hexMap.Add(hex, HexTerrainType.Mountain);
+      var ring = Hex.Zero.HexesAtRadius(size + i);
+      foreach (var hex in ring)
+      {
+        hexMap.Add(hex, HexTerrainType.Mountain);
+      }
     }
 
     BuildFeatures(hexMap, size);
-    BuildMap(hexMap, size + 1);
+    BuildMap(hexMap, size + numRings);
   }
 
 

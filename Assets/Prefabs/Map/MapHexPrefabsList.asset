@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HexTiles:
   - Type: 1
-    Weight: 10
+    Weight: 15
     Prefab: {fileID: 4755727077740869824, guid: 8e246f07e31b8524aa5de9b8014a306e, type: 3}
     IsRotatable: 1
   - Type: 2
-    Weight: 6
+    Weight: 9
     Prefab: {fileID: 876842160582212521, guid: 44b9be342d1d746458c17c08d68e3d4a, type: 3}
     IsRotatable: 1
   - Type: 3
@@ -26,7 +26,7 @@ MonoBehaviour:
     Prefab: {fileID: 714293364790164004, guid: efe689c7b417ec842820a2edf674930a, type: 3}
     IsRotatable: 1
   - Type: 6
-    Weight: 2
+    Weight: 3
     Prefab: {fileID: 2032397571467878424, guid: fe835e391842f52429a61aab95ab60af, type: 3}
     IsRotatable: 1
   - Type: 5
