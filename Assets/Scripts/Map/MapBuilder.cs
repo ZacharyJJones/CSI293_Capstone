@@ -9,51 +9,50 @@ public class MapBuilder : MonoBehaviour
 
   public MapHexPrefabsListScriptable MapPrefabs;
 
-  public Dictionary<HexTerrainType, HexTile> MapPrefabsByTerrainType;
 
-  // =====
-
-  private void Awake()
+  public Dictionary<Hex, HexTerrainType> GenerateMap(int mapRadius)
   {
-    MapPrefabsByTerrainType = MapPrefabs.HexTiles.ToDictionary(x => x.Type, y => y);
-  }
-
-  private void Start()
-  {
-    int size = 20;
-    var hexes = Hex.Zero.HexesInRadius(size);
+    var hexes = Hex.Zero.HexesInRadius(mapRadius);
 
     var hexMap = hexes.ToDictionary(x => x, y => MapPrefabs.GetRandom().Type);
 
-    // Mountain Ring(s)
-    int numRings = 1 + size / 5;
+
+    BuildFeatures(hexMap, mapRadius);
+
+
+
+    // Add Mountain Ring Border
+    int numRings = 1 + mapRadius / 5;
     for (int i = 1; i <= numRings; i++)
     {
-      var ring = Hex.Zero.HexesAtRadius(size + i);
+      var ring = Hex.Zero.HexesAtRadius(mapRadius + i);
       foreach (var hex in ring)
       {
         hexMap.Add(hex, HexTerrainType.Mountain);
       }
     }
 
-    BuildFeatures(hexMap, size);
-    BuildMap(hexMap, size + numRings);
+    return hexMap;
+  }
+
+  private void Start()
+  {
+    int size = 4;
+    var map = GenerateMap(size);
+    BuildMap(map);
   }
 
 
-  private void BuildFeatures(Dictionary<Hex, HexTerrainType> hexes, int mapSize)
+  private void BuildFeatures(Dictionary<Hex, HexTerrainType> hexes, int mapRadius)
   {
-    int mapHalf = mapSize / 2;
-    int numRoads = 1 + mapHalf;
-    int numRivers = mapHalf;
+    Hex hexZero = Hex.Zero;
 
-    Hex zeroHex = Hex.Zero;
-
-
-    for (int i = 0; i < mapHalf; i++)
+    // Make some rivers
+    int numRivers = mapRadius / 2;
+    for (int i = 0; i < numRivers; i++)
     {
-      int ring = mapSize - i;
-      var ringHexes = zeroHex.HexesAtRadius(ring);
+      int ring = mapRadius - i;
+      var ringHexes = hexZero.HexesAtRadius(ring);
 
       int range = ringHexes.Count;
       int random1 = Random.Range(0, range);
@@ -66,16 +65,17 @@ public class MapBuilder : MonoBehaviour
       }
     }
 
-
-    hexes[zeroHex] = HexTerrainType.Town;
-    for (int i = 2; i <= mapSize; i += 2)
+    // Add Towns
+    hexes[hexZero] = HexTerrainType.Town;
+    for (int i = 2; i <= mapRadius; i += 2)
     {
-      var ring = zeroHex.HexesAtRadius(i);
+      var ring = hexZero.HexesAtRadius(i);
       var rand = ring[Random.Range(0, ring.Count)];
 
       hexes[rand] = HexTerrainType.Town;
     }
 
+    // Connect towns w/ roads
     var townHexes = hexes.Where(x => x.Value == HexTerrainType.Town).Select(x => x.Key).ToList();
     for (int i = 0; i < townHexes.Count; i++)
     {
@@ -89,36 +89,35 @@ public class MapBuilder : MonoBehaviour
     }
   }
 
-  private void BuildMap(Dictionary<Hex, HexTerrainType> hexes, int maxDist)
+  private void BuildMap(Dictionary<Hex, HexTerrainType> hexes)
   {
     float waitTime = 0.5f;
     float buildingWaitTime = 0f;
+    var mapPrefabsByTerrainType = MapPrefabs.HexTiles.ToDictionary(x => x.Type, y => y);
 
-    var flood = Hex.Zero.FloodFill(maxDist);
-    foreach (var subList in flood)
+    int dist = 0;
+    var hexesAtDist = new List<Hex> { Hex.Zero };
+    while (hexesAtDist.Any(x => hexes.ContainsKey(x)))
     {
-      // raise each from this list, then increase wait time
-
-      foreach (var hex in subList)
+      foreach (var hex in hexesAtDist)
       {
-        var type = hexes[hex];
+        var gameobjectInfo = mapPrefabsByTerrainType[hexes[hex]];
 
-        // var mapHex = Instantiate(_hexPrefabsByTerrainType[terrainType], this.transform);
-        var instantiatedObject = Instantiate(MapPrefabsByTerrainType[type].Prefab, this.transform);
+        var instantiatedObject = Instantiate(gameobjectInfo.Prefab, this.transform);
 
-        if (MapPrefabsByTerrainType[type].IsRotatable)
+        if (gameobjectInfo.IsRotatable)
         {
           instantiatedObject.transform.Rotate(Vector3.up, Random.Range(0f, 360f));
         }
 
         var mapHex = instantiatedObject.GetComponent<MapHex>();
-
         mapHex.Coordinate = hex;
         mapHex.gameObject.name += $" ({hex.X}, {hex.Y})";
         mapHex.PostInstantiation(hexes, buildingWaitTime);
       }
 
-
+      dist++;
+      hexesAtDist = Hex.Zero.HexesAtRadius(dist);
       buildingWaitTime += waitTime;
     }
   }
