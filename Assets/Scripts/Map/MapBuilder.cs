@@ -17,7 +17,7 @@ public class MapBuilder : MonoBehaviour
     var hexMap = hexes.ToDictionary(x => x, y => MapPrefabs.GetRandom().Type);
 
 
-    BuildFeatures(hexMap, mapRadius);
+    _buildFeatures(hexMap, mapRadius);
 
 
 
@@ -37,13 +37,10 @@ public class MapBuilder : MonoBehaviour
 
   private void Start()
   {
-    int size = 4;
-    var map = GenerateMap(size);
-    BuildMap(map);
   }
 
 
-  private void BuildFeatures(Dictionary<Hex, HexTerrainType> hexes, int mapRadius)
+  private void _buildFeatures(Dictionary<Hex, HexTerrainType> hexes, int mapRadius)
   {
     Hex hexZero = Hex.Zero;
 
@@ -65,35 +62,41 @@ public class MapBuilder : MonoBehaviour
       }
     }
 
-    // Add Towns
-    hexes[hexZero] = HexTerrainType.Town;
+    // Get town eventual locations
+    var townLocations = new List<Hex> { Hex.Zero };
     for (int i = 2; i <= mapRadius; i += 2)
     {
       var ring = hexZero.HexesAtRadius(i);
       var rand = ring[Random.Range(0, ring.Count)];
-
-      hexes[rand] = HexTerrainType.Town;
+      townLocations.Add(rand);
     }
 
     // Connect towns w/ roads
-    var townHexes = hexes.Where(x => x.Value == HexTerrainType.Town).Select(x => x.Key).ToList();
-    for (int i = 0; i < townHexes.Count; i++)
+    // -> Note that roads can pave over top of towns if you are not careful.
+    for (int i = 0; i < townLocations.Count; i++)
     {
-      int rand = Utils.GetRandomNoRepeat(townHexes.Count, i);
+      int rand = Utils.GetRandomNoRepeat(townLocations.Count, i);
+      var roadLine = townLocations[i].GetLineToPoint(townLocations[rand]);
 
-      var roadLine = townHexes[i].GetLineToPoint(townHexes[rand]);
-      for (int j = 1; j < roadLine.Count - 1; j++)
+      foreach (var hex in roadLine)
       {
-        hexes[roadLine[j]] = HexTerrainType.Road;
+        hexes[hex] = HexTerrainType.Road;
       }
+    }
+
+    // Place towns last, to ensure they aren't paved over.
+    foreach (var hex in townLocations)
+    {
+      hexes[hex] = HexTerrainType.Town;
     }
   }
 
-  private void BuildMap(Dictionary<Hex, HexTerrainType> hexes)
+  public Dictionary<Hex, MapHex> BuildMap(Dictionary<Hex, HexTerrainType> hexes, float buildInterval = 0.25f)
   {
-    float waitTime = 0.5f;
     float buildingWaitTime = 0f;
     var mapPrefabsByTerrainType = MapPrefabs.HexTiles.ToDictionary(x => x.Type, y => y);
+
+    var gameobjectMap = new Dictionary<Hex, MapHex>();
 
     int dist = 0;
     var hexesAtDist = new List<Hex> { Hex.Zero };
@@ -114,11 +117,15 @@ public class MapBuilder : MonoBehaviour
         mapHex.Coordinate = hex;
         mapHex.gameObject.name += $" ({hex.X}, {hex.Y})";
         mapHex.PostInstantiation(hexes, buildingWaitTime);
+
+        gameobjectMap.Add(hex, mapHex);
       }
 
       dist++;
       hexesAtDist = Hex.Zero.HexesAtRadius(dist);
-      buildingWaitTime += waitTime;
+      buildingWaitTime += buildInterval;
     }
+
+    return gameobjectMap;
   }
 }
