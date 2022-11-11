@@ -1,9 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using HexGrid;
 
 public static class Utils
 {
+  public static Vector3 HexIn3DSpace(Hex hex)
+  {
+    var twoDSpaceCoords = hex.InTwoDSpace;
+    return new Vector3(twoDSpaceCoords.X, 0f, twoDSpaceCoords.Y);
+  }
 
   public static int GetRandomNoRepeat(int maxExclusive, int last)
   {
@@ -39,6 +45,7 @@ public static class Utils
       yield return null;
     }
 
+    whileActive.Invoke(1f);
     onComplete?.Invoke();
   }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HexGrid;
 
-public class Player : MonoBehaviour
+public class Hero : MonoBehaviour
 {
   public Hex Coordinate;
 

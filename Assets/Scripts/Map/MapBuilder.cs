@@ -91,7 +91,7 @@ public class MapBuilder : MonoBehaviour
     }
   }
 
-  public Dictionary<Hex, MapHex> BuildMap(Dictionary<Hex, HexTerrainType> hexes, float buildInterval = 0.25f)
+  public Dictionary<Hex, MapHex> BuildMap(Dictionary<Hex, HexTerrainType> hexes, out float timeUntilBuilt, float buildInterval = 0.25f)
   {
     float buildingWaitTime = 0f;
     var mapPrefabsByTerrainType = MapPrefabs.HexTiles.ToDictionary(x => x.Type, y => y);
@@ -126,6 +126,7 @@ public class MapBuilder : MonoBehaviour
       buildingWaitTime += buildInterval;
     }
 
+    timeUntilBuilt = buildingWaitTime;
     return gameobjectMap;
   }
 }
