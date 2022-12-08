@@ -254,7 +254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -479, y: -352}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &443561916
@@ -820,59 +820,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1335134678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1335134680}
-  - component: {fileID: 1335134679}
-  m_Layer: 0
-  m_Name: TestEnemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1335134679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335134678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb61ef85131eaa742b58b245a56dc5cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Servants of Vorakesh
-  Flavor: Vorakesh uses his servants to seek the Dragon Runes and spread terror.
-    You have discovered a coven of these minions carrying out their dark lord's wishes.
-  MaxWounds: 2
-  RangedAttack: 10
-  RangedDamage: 0
-  MeleeAttack: 12
-  MeleeDamage: 1
-  MagicAttack: 13
-  MagicDamage: 2
---- !u!4 &1335134680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335134678}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1632401008
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +915,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1800481195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1800481197}
+  - component: {fileID: 1800481196}
+  m_Layer: 0
+  m_Name: EnemyRed_
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1800481196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800481195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb61ef85131eaa742b58b245a56dc5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Flavor: 
+  MaxWounds: 0
+  RangedAttack: 0
+  RangedDamage: 0
+  MeleeAttack: 0
+  MeleeDamage: 0
+  MagicAttack: 0
+  MagicDamage: 0
+--- !u!4 &1800481197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800481195}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1817803579
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +978,7 @@ GameObject:
   - component: {fileID: 1817803581}
   - component: {fileID: 1817803580}
   - component: {fileID: 1817803582}
+  - component: {fileID: 1817803583}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1038,6 +1038,35 @@ MonoBehaviour:
   MoveOptionSpawnHeight: 2
   MoveOptionSpawnLerpTime: 0.5
   MovementSelectionPrefab: {fileID: 4157127046230482129, guid: 35b4f6cd291ce3a44b8e6c8d25aa61ec, type: 3}
+--- !u!114 &1817803583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817803579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c85bce3c931fa447b7222ff6f85a382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  T1_GreenEnemies:
+  - {fileID: 5236720128607278290, guid: d6031dd26709aa246ae0a323fddaf2c5, type: 3}
+  - {fileID: 659857353955242438, guid: 6b7ba28365bb5124a846daf3c60e978f, type: 3}
+  - {fileID: 1623675495815317375, guid: 06ca79de3c24408488d916b8441fffcc, type: 3}
+  - {fileID: 8348441339459231854, guid: a4b4d028bee7ed847acbc77ac57d0e29, type: 3}
+  - {fileID: 8528718349965647844, guid: 5d2c6e4b206969c46b4af3ef5f16b9a3, type: 3}
+  T2_YellowEnemies:
+  - {fileID: 3970958169729442256, guid: e77ff319c03cac04086d6bf86a6706e5, type: 3}
+  - {fileID: 1673854673231570612, guid: 63ed2b6791a44454399b16db7ac1d0c8, type: 3}
+  - {fileID: 5870389834467112887, guid: 24903ff79936b494d9af7b76b294128f, type: 3}
+  - {fileID: 3378511946216431673, guid: ce8df24645b0c7b46b11c1afab82727b, type: 3}
+  T3_BlueEnemies:
+  - {fileID: 7650109192091664396, guid: 7efbb7eec2f86cd48908f6a5491f262e, type: 3}
+  - {fileID: 7907435798783790918, guid: d573e63e8954425469a414b297f29945, type: 3}
+  - {fileID: 1477380358766727673, guid: 1f30f0a9e0fb2b54e9184c8f7369030e, type: 3}
+  - {fileID: 6864505553028777829, guid: e963e6ddf2de3b74db1ad411c0caa0ef, type: 3}
+  T4_RedEnemies: []
 --- !u!1 &1874630943
 GameObject:
   m_ObjectHideFlags: 0
