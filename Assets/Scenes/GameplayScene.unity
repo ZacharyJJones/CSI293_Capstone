@@ -370,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapRoot: {fileID: 599376634}
   MapPrefabs: {fileID: 11400000, guid: 4450e0b4349afed41a1bcbe16f3b069b, type: 2}
+  AdventureTokenPrefab: {fileID: 1116283116386492302, guid: 75ff21da682eb674e9693153e5d86fb3, type: 3}
 --- !u!4 &599376636
 Transform:
   m_ObjectHideFlags: 0
@@ -915,58 +916,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1800481195
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1800481197}
-  - component: {fileID: 1800481196}
-  m_Layer: 0
-  m_Name: EnemyRed_
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1800481196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800481195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb61ef85131eaa742b58b245a56dc5cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: 
-  Flavor: 
-  MaxWounds: 0
-  RangedAttack: 0
-  RangedDamage: 0
-  MeleeAttack: 0
-  MeleeDamage: 0
-  MagicAttack: 0
-  MagicDamage: 0
---- !u!4 &1800481197
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800481195}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1817803579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1015,14 @@ MonoBehaviour:
   - {fileID: 7907435798783790918, guid: d573e63e8954425469a414b297f29945, type: 3}
   - {fileID: 1477380358766727673, guid: 1f30f0a9e0fb2b54e9184c8f7369030e, type: 3}
   - {fileID: 6864505553028777829, guid: e963e6ddf2de3b74db1ad411c0caa0ef, type: 3}
-  T4_RedEnemies: []
+  T4_RedEnemies:
+  - {fileID: 4347494700326881202, guid: bd2dbad40b4e8cc4eaa0928a9d47e77b, type: 3}
+  - {fileID: 1695844911625765095, guid: eb075a4a87144f64bb62917f3a31b48d, type: 3}
+  - {fileID: 51100596066294213, guid: b9941ac0c77657d4a8410245cb67add1, type: 3}
+  - {fileID: 5113933864020595351, guid: 888f6f3563a0b2b40b51172a059b5d58, type: 3}
+  - {fileID: 8401809631107976111, guid: deb9fffaa8a985044803699ff4a493f9, type: 3}
+  - {fileID: 2997121177865106379, guid: a78aaab02318e62419e0b6db0fcd3d13, type: 3}
+  - {fileID: 5962340108620935031, guid: 1d98988371a5c4743bfef85b1d2b6c7a, type: 3}
 --- !u!1 &1874630943
 GameObject:
   m_ObjectHideFlags: 0

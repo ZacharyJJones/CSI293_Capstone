@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
 
   private void Start()
   {
+    // Look for "savegamedata" object in hierarchy. If not there, generate as normal.
+
     _activeHeroIndex = 0;
 
     var map = MapBuilder.GenerateMap(MapSize);
