@@ -18,40 +18,38 @@ public class MovementManager : GameStateManagerBase
 
   // Etc
   public override string GameStateName => "Movement";
-
-  public override void BeginStateManagement(Hero activeHero, Dictionary<Hex, MapHex> map, Action onStateCompletion)
+  public override void BeginStateManagement(Action onStateCompletion)
   {
-    // Base State Management
-    base.BeginStateManagement(activeHero, map, onStateCompletion);
+    base.BeginStateManagement(onStateCompletion);
 
-    // Specific State Management
     _validMoves = GetValidPlayerMoves();
     DisplayPlayerMovementOptions(_validMoves);
-    //PickPlayerMovementOption(options[UnityEngine.Random.Range(0, options.Count)]);
   }
 
 
 
   public List<Hex> GetValidPlayerMoves()
   {
-    var adjacents = _hero.Coordinate.Adjacents;
-    for (int i = adjacents.Count - 1; i >= 0; i--)
+    var heroCoord = _gameManager.ActiveHero.Coordinate;
+    var moveOptions = heroCoord.Adjacents;
+    for (int i = moveOptions.Count - 1; i >= 0; i--)
     {
-      if (!_map.ContainsKey(adjacents[i]))
+      if (!_gameManager.HexMap.ContainsKey(moveOptions[i]))
       {
-        adjacents.RemoveAt(i);
+        moveOptions.RemoveAt(i);
       }
     }
-    return adjacents;
+    moveOptions.Add(heroCoord);
+    return moveOptions;
   }
 
-  // could raise them higher to show selectability?
   public void DisplayPlayerMovementOptions(List<Hex> options)
   {
     _moveOptionObjects = new List<GameObject>();
     foreach (var option in options)
     {
-      _spawnMoveOption(option);
+      var obj = _spawnMoveOption(option);
+      _moveOptionObjects.Add(obj);
     }
   }
 
@@ -59,16 +57,18 @@ public class MovementManager : GameStateManagerBase
   {
     _cleanupMoveOptionObjects();
 
-    _hero.Coordinate = chosen;
+    _gameManager.ActiveHero.Coordinate = chosen;
     var xy = chosen.InTwoDSpace;
 
-    var oldPosition = _hero.transform.localPosition;
+    var heroTransform = _gameManager.ActiveHero.transform;
+
+    var oldPosition = heroTransform.localPosition;
     var newPosition = new Vector3(xy.X, 0f, xy.Y);
 
     StartCoroutine(Utils.DoOverTime(HeroMoveTime,
       (t) =>
       {
-        _hero.transform.localPosition = Vector3.Lerp(
+        heroTransform.localPosition = Vector3.Lerp(
           oldPosition,
           newPosition,
           Transform.SmoothStepX(t, 2)
@@ -85,10 +85,8 @@ public class MovementManager : GameStateManagerBase
     }
   }
 
-  private void _spawnMoveOption(Hex location)
+  private GameObject _spawnMoveOption(Hex location)
   {
-    // show tile can be moved to
-    // instantiate something
     var obj = Instantiate(
       MovementSelectionPrefab,
       Utils.HexIn3DSpace(location),
@@ -96,38 +94,36 @@ public class MovementManager : GameStateManagerBase
       this.transform
     );
 
-    _moveOptionObjects.Add(obj);
-
-    // Set onclick
     var clickable = obj.GetComponent<CameraClickable>();
     clickable.OnClick = () => PickPlayerMovementOption(location);
 
-    // lerp into view!
-    var endScale = obj.transform.localScale;
     var startPos = obj.transform.localPosition;
     var endPos = new Vector3(startPos.x, MoveOptionSpawnHeight, startPos.z);
-    StartCoroutine(Utils.DoOverTime(
-      MoveOptionSpawnLerpTime,
-      (t) =>
-      {
-        obj.transform.localPosition = Vector3.Lerp(startPos, endPos, Transform.SmoothStepX(t, 2));
-        obj.transform.localScale = Vector3.Lerp(Vector3.zero, endScale, t);
-      }
-    ));
+    _moveOptionLerpCommon(obj, MoveOptionSpawnLerpTime, startPos, endPos, Vector3.zero, obj.transform.localScale);
+
+    return obj;
   }
   private void _despawnMoveOption(GameObject obj)
   {
-    var startScale = obj.transform.localScale;
+    float time = MoveOptionSpawnLerpTime / 2f;
     var startPos = obj.transform.localPosition;
-    var endPos = new Vector3(startPos.x, -MoveOptionSpawnHeight, startPos.z);
+    var endPos = new Vector3(startPos.x, startPos.y - MoveOptionSpawnHeight, startPos.z);
+    _moveOptionLerpCommon(obj, time, startPos, endPos, obj.transform.localScale, Vector3.zero);
+
+  }
+  private void _moveOptionLerpCommon(GameObject obj, float lerpTime, Vector3 startPos, Vector3 endPos, Vector3 startScale, Vector3 endScale)
+  {
     StartCoroutine(Utils.DoOverTime(
-      MoveOptionSpawnLerpTime / 2f,
+      lerpTime,
       (t) =>
       {
         obj.transform.localPosition = Vector3.Lerp(startPos, endPos, Transform.SmoothStepX(t, 2));
-        obj.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, t);
+        obj.transform.localScale = Vector3.Lerp(startScale, endScale, t);
       },
-      () => Destroy(obj)
+      () =>
+      {
+        Destroy(obj);
+      }
     ));
   }
 }
