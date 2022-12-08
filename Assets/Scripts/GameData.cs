@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HexGrid;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class GameData
 {
@@ -10,7 +11,7 @@ public class GameData
   {
     get
     {
-      return Data.ToDictionary(x => x.Coordinate, y => y.Terrain);
+      return Data.ToDictionary(x => new Hex(x.xCoord, x.yCoord), y => y.Terrain);
     }
     set
     {
@@ -20,7 +21,8 @@ public class GameData
       {
         Data.Add(new HexTileWithTerrain()
         {
-          Coordinate = pair.Key,
+          xCoord = pair.Key.X,
+          yCoord = pair.Key.Y,
           Terrain = pair.Value
         });
       }
@@ -35,7 +37,8 @@ public class GameData
   [System.Serializable]
   public class HexTileWithTerrain
   {
-    public Hex Coordinate;
+    public int xCoord;
+    public int yCoord;
     public HexTerrainType Terrain;
   }
 }
