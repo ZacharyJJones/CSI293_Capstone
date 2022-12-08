@@ -9,6 +9,8 @@ public class MapBuilder : MonoBehaviour
 
   public MapHexPrefabsListScriptable MapPrefabs;
 
+  public GameObject AdventureTokenPrefab;
+
 
   public Dictionary<Hex, HexTerrainType> GenerateMap(int mapRadius)
   {

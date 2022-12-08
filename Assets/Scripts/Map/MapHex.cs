@@ -8,6 +8,7 @@ public class MapHex : MonoBehaviour
   public HexTerrainType TerrainType;
 
   [HideInInspector]
+  public MapHexInfo Info;
   public Hex Coordinate;
 
   public virtual void PostInstantiation(Dictionary<Hex, HexTerrainType> hexes, float delayToRise)

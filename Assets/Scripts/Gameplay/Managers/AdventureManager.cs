@@ -17,6 +17,9 @@ public class AdventureManager : GameStateManagerBase
 
 
 
+  private AdventureChallenge _currentEnemy;
+
+
   public override string GameStateName => "Adventure";
 
 
@@ -25,11 +28,18 @@ public class AdventureManager : GameStateManagerBase
     base.BeginStateManagement(onStateCompletion);
 
     // 1. Check if player is on an adventure tile (if not, nothing needs to happen here)
+
+    // [Testing]: 50% chance of enemy, always T1
+    if (UnityEngine.Random.Range(0, 2) == 0)
+    {
+      _onStateCompletion.Invoke();
+      return;
+    }
     int challengeTier = 1;
 
     // 2. get challege prefab
     var adventureChallengePrefab = _getChallengePrefab(challengeTier);
-
+    _currentEnemy = Instantiate(adventureChallengePrefab, Vector3.zero, Quaternion.identity, this.transform);
 
 
 

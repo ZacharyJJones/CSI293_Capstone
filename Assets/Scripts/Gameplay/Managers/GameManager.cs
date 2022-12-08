@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
 
   // Runtime
+  public Dictionary<Hex, int> MapAdventureNodes;
   public Dictionary<Hex, MapHex> HexMap;
   private int _activeHeroIndex;
 
