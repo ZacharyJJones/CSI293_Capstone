@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using HexGrid;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager Instance;
 
+  public SceneLoader LoadTitleScene;
 
   // Inspector
   public int MapSize;
@@ -46,13 +49,33 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(this);
   }
 
+  public void SaveAndExitGame()
+  {
+    var saveGame = new GameData();
+    saveGame.HexMap = HexMap.Values.ToDictionary(x => x.Coordinate, y => y.TerrainType);
+    string json = JsonUtility.ToJson(saveGame);
+    string path = Application.dataPath + "/savegame.json";
+    Debug.Log(path);
+    File.WriteAllText(path, json);
+    LoadTitleScene.LoadScene();
+  }
+
   private void Start()
   {
     // Look for "savegamedata" object in hierarchy. If not there, generate as normal.
 
     _activeHeroIndex = 0;
 
-    var map = MapBuilder.GenerateMap(MapSize);
+    Dictionary<Hex, HexTerrainType> map;
+    if (SaveGameData.Instance == null)
+    {
+      map = MapBuilder.GenerateMap(MapSize);
+    }
+    else
+    {
+      map = SaveGameData.Instance.Data.HexMap;
+    }
+
     HexMap = MapBuilder.BuildMap(map, out float buildingTime);
 
     // Put players in starting location(s).

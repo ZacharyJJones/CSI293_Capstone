@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class SaveGameData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  public static SaveGameData Instance;
+
+  public void Initialize(GameData data)
+  {
+    if (Instance != null)
     {
-        
+      Destroy(this);
+      return;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Instance = this;
+    DontDestroyOnLoad(this);
+
+    Data = data;
+  }
+
+  public GameData Data;
 }

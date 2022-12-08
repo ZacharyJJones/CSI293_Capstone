@@ -50,6 +50,7 @@ namespace HexGrid
     CounterClockwise
   }
 
+  [System.Serializable]
   public readonly struct Hex : IEquatable<Hex>
   {
     /// <summary> Pre-computed value for sqrt(3)/2. Used for converting hexagonal coordinates to 2d. </summary>

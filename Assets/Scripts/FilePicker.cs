@@ -23,7 +23,12 @@ public class FilePicker : MonoBehaviour
       return;
     }
 
+
+
     // use filepath, get file data, load into game data object, use that to load scene.
     var json = File.ReadAllText(path);
+    GameData saveGame = JsonUtility.FromJson<GameData>(json);
+    SaveGameDataObj.Initialize(saveGame);
+    SceneLoader.LoadScene();
   }
 }
